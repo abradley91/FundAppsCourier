@@ -14,7 +14,9 @@ namespace FundAppsCodeKata
             Y = y;
             Z = z;
             Weight = weight;
-            Size = CalculateParcelSize();
+            
+            ParcelSizeCalculator parcelSizeCalculator = new ParcelSizeCalculator();
+            Size = parcelSizeCalculator.CalculateParcelSize(x, y, z, weight);
         }
 
         public int X { get; private set; }
@@ -22,50 +24,6 @@ namespace FundAppsCodeKata
         public int Z { get; private set; }
         public ParcelSize Size { get; private set; }
         public int Weight { get; private set; }
-
-        private ParcelSize CalculateParcelSize()
-        {
-            if (ParcelIsHeavy())
-            {
-                return ParcelSize.Heavy;
-            }
-            else if (ParcelIsSmall())
-            {
-                return ParcelSize.Small;
-            }
-            else if (ParcelIsMedium())
-            {
-                return ParcelSize.Medium;
-            }
-            else if (ParcelIsLarge())
-            {
-                return ParcelSize.Large;
-            }
-            else
-            {
-                return ParcelSize.XL;
-            }
-        }
-
-        private bool ParcelIsHeavy()
-        {
-            return Weight > 10;
-        }
-
-        private bool ParcelIsSmall()
-        {
-            return X < 10 && Y < 10 && Z < 10;
-        }
-
-        private bool ParcelIsMedium()
-        {
-            return X < 50 && Y < 50 && Z < 50;
-        }
-
-        private bool ParcelIsLarge()
-        {
-            return X < 100 && Y < 100 && Z < 100;
-        }
     }
 
     public enum ParcelSize

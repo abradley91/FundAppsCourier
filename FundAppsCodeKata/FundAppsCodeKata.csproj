@@ -48,6 +48,7 @@
     <Compile Include="DeliveryItems\IDeliveryItem.cs" />
     <Compile Include="DeliveryItems\SpeedyDeliveryItem.cs" />
     <Compile Include="Parcel.cs" />
+    <Compile Include="ParcelSizeCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
