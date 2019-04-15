@@ -230,7 +230,67 @@ namespace FundAppsCodeKata.Tests
             Assert.AreEqual(55, result.TotalCost);
         }
 
+        [Test]
+        public void Given4SmallParcels_When4thSmallParcelIsAdded_4thParcelShouldBeFree()
+        {
+            List<Parcel> parcels = new List<Parcel>() { CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1) };
 
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(5, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[4].Type);
+            Assert.AreEqual(9, result.TotalCost);
+        }
+
+        [Test]
+        public void Given8SmallParcels_WhenEach4thSmallParcelIsAdded_Each4thParcelShouldBeFree()
+        {
+            List<Parcel> parcels = new List<Parcel>() { CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1),
+            CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1)};
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(10, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[8].Type);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[9].Type);
+            Assert.AreEqual(18, result.TotalCost);
+        }
+
+        [Test]
+        public void Given3MediumParcels_When3rdMediumParcelIsAdded_3rdParcelShouldBeFree()
+        {
+            List<Parcel> parcels = new List<Parcel>() { CreateParcel(15, 15, 15), CreateParcel(15, 15, 15), CreateParcel(15, 15, 15) };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(4, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[3].Type);
+            Assert.AreEqual(16, result.TotalCost);
+        }
+
+        [Test]
+        public void GivenAny5Parcels_When5thMediumParcelIsAdded_5thParcelShouldBeFreeAsLongAsNoCheaperDiscountApplies()
+        {
+            List<Parcel> parcels = new List<Parcel>() { CreateParcel(60, 60, 60), CreateParcel(60, 60, 60), CreateParcel(60, 60, 60), CreateParcel(60, 60, 60), CreateParcel(60, 60, 60) };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(6, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[5].Type);
+            Assert.AreEqual(60, result.TotalCost);
+        }
+
+        [Test]
+        public void Given5Parcels_When5thParcelHas2Discounts_TheBestDiscountShouldApply()
+        {
+            List<Parcel> parcels = new List<Parcel>() { CreateParcel(60, 60, 60), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1), CreateParcel(1, 1, 1) };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(6, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Discount, result.DeliveryItems[5].Type);
+            Assert.AreEqual(24, result.TotalCost);
+        }
 
         private Parcel CreateParcel(int x, int y, int z)
         {

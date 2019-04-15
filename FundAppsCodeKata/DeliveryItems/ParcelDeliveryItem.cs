@@ -17,17 +17,12 @@ namespace FundAppsCodeKata.DeliveryItems
         public DeliveryItemType Type { get; set; }
         public decimal Cost { get; set; }
 
-        private Dictionary<ParcelSize, ParcelDefaultValues> _parcelDefaultValues = new Dictionary<ParcelSize, ParcelDefaultValues>() {
-            { ParcelSize.Small, new ParcelDefaultValues(3, 1) },
-            { ParcelSize.Medium, new ParcelDefaultValues(8, 3) },
-            { ParcelSize.Large, new ParcelDefaultValues(15, 6) },
-            { ParcelSize.XL, new ParcelDefaultValues(25, 10) },
-            { ParcelSize.Heavy, new ParcelDefaultValues(50, 50) } 
-        };
+        
 
         private decimal GetParcelCost(ParcelSize parcelSize, int weight)
         {
-            ParcelDefaultValues defaultValues = _parcelDefaultValues[parcelSize];
+            var parcelDefaultValues = ParcelRepository.GetParcelDefaultValues();
+            ParcelDefaultValues defaultValues = parcelDefaultValues[parcelSize];
             if (weight > defaultValues.Weight)
             {
                 return defaultValues.Cost + CalculateExtraWeightCost(weight - defaultValues.Weight, parcelSize);
@@ -44,17 +39,6 @@ namespace FundAppsCodeKata.DeliveryItems
             }
 
             return 2 * amountOverWeight;
-        }
-
-        private struct ParcelDefaultValues
-        {
-            public ParcelDefaultValues(decimal cost, int weight)
-            {
-                Cost = cost;
-                Weight = weight;
-            }
-            public decimal Cost { get; private set; }
-            public int Weight { get; private set; }
         }
     }
 }

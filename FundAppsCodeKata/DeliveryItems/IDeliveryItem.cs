@@ -9,7 +9,8 @@ namespace FundAppsCodeKata.DeliveryItems
     public enum DeliveryItemType
     {
         Parcel,
-        SpeedyDelivery
+        SpeedyDelivery,
+        Discount
     }
 
     public interface IDeliveryItem

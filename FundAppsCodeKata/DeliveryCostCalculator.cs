@@ -26,6 +26,8 @@ namespace FundAppsCodeKata
                 delivery.AddParcelToDelivery(parcel);
             }
 
+            delivery.ApplyDiscounts(); ;
+
             if (speedyDelivery)
             {
                 delivery.AddSpeedyDelivery();
