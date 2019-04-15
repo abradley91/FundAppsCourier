@@ -217,6 +217,21 @@ namespace FundAppsCodeKata.Tests
             Assert.AreEqual(50, result.TotalCost);
         }
 
+        [Test]
+        public void Given1Parcel_WhenParcelWeightIs55_CostIs55()
+        {
+            Parcel parcel = CreateParcel(1, 1, 1, 55);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(1, result.DeliveryItems.Count);
+            Assert.AreEqual(55, result.TotalCost);
+        }
+
+
+
         private Parcel CreateParcel(int x, int y, int z)
         {
             return new Parcel(x, y, z, 1);
