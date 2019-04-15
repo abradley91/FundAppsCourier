@@ -10,11 +10,11 @@ namespace FundAppsCodeKata
     {
         public Delivery()
         {
-            DeliveryItems = new List<DeliveryItem>();
+            DeliveryItems = new List<IDeliveryItem>();
             TotalCost = 0;
         }
 
-        public List<DeliveryItem> DeliveryItems { get; }
+        public List<IDeliveryItem> DeliveryItems { get; }
         public decimal TotalCost { get; private set; }
 
         public void AddParcelToDelivery(Parcel parcel)
@@ -22,6 +22,13 @@ namespace FundAppsCodeKata
             DeliveryItem deliveryItem = new DeliveryItem(parcel);
             DeliveryItems.Add(deliveryItem);
             TotalCost += deliveryItem.Cost;
+        }
+
+        public void AddSpeedyDelivery()
+        {
+            SpeedyDeliveryItem speedyDeliveryItem = new SpeedyDeliveryItem(TotalCost);
+            DeliveryItems.Add(speedyDeliveryItem);
+            TotalCost *= 2;
         }
     }
 }

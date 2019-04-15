@@ -91,6 +91,92 @@ namespace FundAppsCodeKata.Tests
             Assert.AreEqual(25, result.DeliveryItems[3].Cost);
         }
 
+        [Test]
+        public void Given1Parcel_WhenParcelIsSmallAndSpeedyDelivery_CostIs6()
+        {
+            Parcel parcel = CreateParcel(1, 1, 1);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, true);
+
+            Assert.AreEqual(2, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
+            Assert.AreEqual(DeliveryItemType.SpeedyDelivery, result.DeliveryItems[1].Type);
+            Assert.AreEqual(6, result.TotalCost);
+        }
+
+        [Test]
+        public void Given1Parcel_WhenParcelIsMediumAndSpeedyDelivery_CostIs16()
+        {
+            Parcel parcel = CreateParcel(40, 10, 10);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, true);
+
+            Assert.AreEqual(2, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
+            Assert.AreEqual(DeliveryItemType.SpeedyDelivery, result.DeliveryItems[1].Type);
+            Assert.AreEqual(16, result.TotalCost);
+        }
+
+        [Test]
+        public void Given1Parcel_WhenParcelIsLargeAndSpeedyDelivery_CostIs30()
+        {
+            Parcel parcel = CreateParcel(60, 60, 50);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, true);
+
+            Assert.AreEqual(2, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
+            Assert.AreEqual(DeliveryItemType.SpeedyDelivery, result.DeliveryItems[1].Type);
+            Assert.AreEqual(30, result.TotalCost);
+        }
+
+        [Test]
+        public void Given1Parcel_WhenParcelIsXLAndSpeedyDelivery_CostIs50()
+        {
+            Parcel parcel = CreateParcel(150, 30, 50);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, true);
+
+            Assert.AreEqual(2, result.DeliveryItems.Count);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
+            Assert.AreEqual(DeliveryItemType.SpeedyDelivery, result.DeliveryItems[1].Type);
+            Assert.AreEqual(50, result.TotalCost);
+        }
+
+        [Test]
+        public void GivenMultipleParcels_WhenSpeedyDelivery_ThenTotalCostIsDoubled()
+        {
+            Parcel smallParcel = CreateParcel(5, 5, 5);
+            Parcel mediumParcel = CreateParcel(15, 15, 15);
+            Parcel largeParcel = CreateParcel(55, 55, 55);
+            Parcel xlParcel = CreateParcel(150, 5, 5);
+
+            List<Parcel> parcels = new List<Parcel>() { smallParcel, mediumParcel, largeParcel, xlParcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, true);
+
+            Assert.AreEqual(5, result.DeliveryItems.Count);
+            Assert.AreEqual(102, result.TotalCost);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
+            Assert.AreEqual(3, result.DeliveryItems[0].Cost);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[1].Type);
+            Assert.AreEqual(8, result.DeliveryItems[1].Cost);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[2].Type);
+            Assert.AreEqual(15, result.DeliveryItems[2].Cost);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[3].Type);
+            Assert.AreEqual(25, result.DeliveryItems[3].Cost);
+            Assert.AreEqual(DeliveryItemType.SpeedyDelivery, result.DeliveryItems[4].Type);
+            Assert.AreEqual(51, result.DeliveryItems[4].Cost);
+        }
+
         private Parcel CreateParcel(int x, int y, int z)
         {
             return new Parcel(x, y, z);

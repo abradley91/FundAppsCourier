@@ -8,10 +8,17 @@ namespace FundAppsCodeKata
 {
     public enum DeliveryItemType
     {
-        Parcel
+        Parcel,
+        SpeedyDelivery
     }
 
-    public class DeliveryItem
+    public interface IDeliveryItem
+    {
+        DeliveryItemType Type { get; set; }
+        decimal Cost { get; set; }
+    }
+
+    public class DeliveryItem : IDeliveryItem
     {
         public DeliveryItemType Type { get; set; }
         public decimal Cost { get; set; }
@@ -42,4 +49,17 @@ namespace FundAppsCodeKata
             }
         }
     }
+
+    public class SpeedyDeliveryItem : IDeliveryItem
+    {
+        public SpeedyDeliveryItem(decimal cost)
+        {
+            Type = DeliveryItemType.SpeedyDelivery;
+            Cost = cost;
+        }
+
+        public DeliveryItemType Type { get; set; }
+        public decimal Cost { get; set; }
+    }
+
 }

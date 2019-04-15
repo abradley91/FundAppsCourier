@@ -10,11 +10,25 @@ namespace FundAppsCodeKata
     {
         public Delivery CalculateDeliveryCosts(IEnumerable<Parcel> parcels)
         {
+            return CreateDelivery(parcels, false);
+        }
+        public Delivery CalculateDeliveryCosts(IEnumerable<Parcel> parcels, bool speedyDelivery)
+        {
+            return CreateDelivery(parcels, speedyDelivery);
+        }
+
+        private Delivery CreateDelivery(IEnumerable<Parcel> parcels, bool speedyDelivery)
+        {
             Delivery delivery = new Delivery();
 
-            foreach(Parcel parcel in parcels)
+            foreach (Parcel parcel in parcels)
             {
                 delivery.AddParcelToDelivery(parcel);
+            }
+
+            if (speedyDelivery)
+            {
+                delivery.AddSpeedyDelivery();
             }
 
             return delivery;
