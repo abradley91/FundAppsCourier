@@ -46,6 +46,7 @@ namespace FundAppsCodeKata
                         if(currentParcelCount % 4 == 0)
                         {
                             currentMinDiscount = 3;
+                            count -= 4;
                         }
                     }
                     else if (parcel.Size == ParcelSize.Medium)
@@ -54,6 +55,7 @@ namespace FundAppsCodeKata
                         if (currentParcelCount % 3 == 0)
                         {
                             currentMinDiscount = 8;
+                            count -= 3;
                         }
                     }
                 }
