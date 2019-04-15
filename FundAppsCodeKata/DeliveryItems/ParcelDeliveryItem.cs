@@ -21,21 +21,28 @@ namespace FundAppsCodeKata.DeliveryItems
             { ParcelSize.Small, new ParcelDefaultValues(3, 1) },
             { ParcelSize.Medium, new ParcelDefaultValues(8, 3) },
             { ParcelSize.Large, new ParcelDefaultValues(15, 6) },
-            { ParcelSize.XL, new ParcelDefaultValues(25, 10) } };
+            { ParcelSize.XL, new ParcelDefaultValues(25, 10) },
+            { ParcelSize.Heavy, new ParcelDefaultValues(50, 50) } 
+        };
 
         private decimal GetParcelCost(ParcelSize parcelSize, int weight)
         {
             ParcelDefaultValues defaultValues = _parcelDefaultValues[parcelSize];
             if (weight > defaultValues.Weight)
             {
-                return defaultValues.Cost + CalculateExtraWeightCost(weight - defaultValues.Weight);
+                return defaultValues.Cost + CalculateExtraWeightCost(weight - defaultValues.Weight, parcelSize);
             }
 
             return defaultValues.Cost;
         }
 
-        private decimal CalculateExtraWeightCost(int amountOverWeight)
+        private decimal CalculateExtraWeightCost(int amountOverWeight, ParcelSize parcelSize)
         {
+            if(parcelSize == ParcelSize.Heavy)
+            {
+                return amountOverWeight;
+            }
+
             return 2 * amountOverWeight;
         }
 

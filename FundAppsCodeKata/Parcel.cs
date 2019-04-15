@@ -13,8 +13,8 @@ namespace FundAppsCodeKata
             X = x;
             Y = y;
             Z = z;
-            Size = CalculateParcelSize();
             Weight = weight;
+            Size = CalculateParcelSize();
         }
 
         public int X { get; private set; }
@@ -25,7 +25,11 @@ namespace FundAppsCodeKata
 
         private ParcelSize CalculateParcelSize()
         {
-            if (ParcelIsSmall())
+            if (ParcelIsHeavy())
+            {
+                return ParcelSize.Heavy;
+            }
+            else if (ParcelIsSmall())
             {
                 return ParcelSize.Small;
             }
@@ -41,6 +45,11 @@ namespace FundAppsCodeKata
             {
                 return ParcelSize.XL;
             }
+        }
+
+        private bool ParcelIsHeavy()
+        {
+            return Weight > 10;
         }
 
         private bool ParcelIsSmall()
@@ -64,6 +73,7 @@ namespace FundAppsCodeKata
         Small,
         Medium,
         Large,
-        XL
+        XL,
+        Heavy
     }
 }
