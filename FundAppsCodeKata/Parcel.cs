@@ -8,18 +8,20 @@ namespace FundAppsCodeKata
 {
     public class Parcel
     {
-        public Parcel(int x, int y, int z)
+        public Parcel(int x, int y, int z, int weight)
         {
             X = x;
             Y = y;
             Z = z;
             Size = CalculateParcelSize();
+            Weight = weight;
         }
 
         public int X { get; private set; }
         public int Y { get; private set; }
         public int Z { get; private set; }
         public ParcelSize Size { get; private set; }
+        public int Weight { get; private set; }
 
         private ParcelSize CalculateParcelSize()
         {

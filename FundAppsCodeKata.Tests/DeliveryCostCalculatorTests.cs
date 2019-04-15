@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using FundAppsCodeKata.DeliveryItems;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 
@@ -177,9 +178,40 @@ namespace FundAppsCodeKata.Tests
             Assert.AreEqual(51, result.DeliveryItems[4].Cost);
         }
 
+        [Test]
+        public void Given1Parcel_WhenParcelIsSmallAndWeightIsExceededBy1_CostIs5()
+        {
+            Parcel parcel = CreateParcel(1, 1, 1, 2);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(1, result.DeliveryItems.Count);
+            Assert.AreEqual(5, result.TotalCost);
+        }
+
+        [Test]
+        public void Given1Parcel_WhenParcelIsSmallAndWeightIsExceededBy2_CostIs7()
+        {
+            Parcel parcel = CreateParcel(1, 1, 1, 3);
+
+            List<Parcel> parcels = new List<Parcel>() { parcel };
+
+            var result = _deliveryCostCalculator.CalculateDeliveryCosts(parcels, false);
+
+            Assert.AreEqual(1, result.DeliveryItems.Count);
+            Assert.AreEqual(7, result.TotalCost);
+        }
+
         private Parcel CreateParcel(int x, int y, int z)
         {
-            return new Parcel(x, y, z);
+            return new Parcel(x, y, z, 1);
+        }
+
+        private Parcel CreateParcel(int x, int y, int z, int weight)
+        {
+            return new Parcel(x, y, z, weight);
         }
     }
 }

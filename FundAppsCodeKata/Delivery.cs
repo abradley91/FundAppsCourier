@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FundAppsCodeKata.DeliveryItems;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,9 @@ namespace FundAppsCodeKata
 
         public void AddParcelToDelivery(Parcel parcel)
         {
-            DeliveryItem deliveryItem = new DeliveryItem(parcel);
-            DeliveryItems.Add(deliveryItem);
-            TotalCost += deliveryItem.Cost;
+            ParcelDeliveryItem parcelDeliveryItem = new ParcelDeliveryItem(parcel);
+            DeliveryItems.Add(parcelDeliveryItem);
+            TotalCost += parcelDeliveryItem.Cost;
         }
 
         public void AddSpeedyDelivery()
