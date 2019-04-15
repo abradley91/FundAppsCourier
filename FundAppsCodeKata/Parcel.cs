@@ -13,10 +13,55 @@ namespace FundAppsCodeKata
             X = x;
             Y = y;
             Z = z;
+            Size = CalculateParcelSize();
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Z { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public int Z { get; private set; }
+        public ParcelSize Size { get; private set; }
+
+        private ParcelSize CalculateParcelSize()
+        {
+            if (ParcelIsSmall())
+            {
+                return ParcelSize.Small;
+            }
+            else if (ParcelIsMedium())
+            {
+                return ParcelSize.Medium;
+            }
+            else if (ParcelIsLarge())
+            {
+                return ParcelSize.Large;
+            }
+            else
+            {
+                return ParcelSize.XL;
+            }
+        }
+
+        private bool ParcelIsSmall()
+        {
+            return X < 10 && Y < 10 && Z < 10;
+        }
+
+        private bool ParcelIsMedium()
+        {
+            return X < 50 && Y < 50 && Z < 50;
+        }
+
+        private bool ParcelIsLarge()
+        {
+            return X < 100 && Y < 100 && Z < 100;
+        }
+    }
+
+    public enum ParcelSize
+    {
+        Small,
+        Medium,
+        Large,
+        XL
     }
 }

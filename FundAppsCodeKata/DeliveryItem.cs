@@ -6,61 +6,40 @@ using System.Threading.Tasks;
 
 namespace FundAppsCodeKata
 {
-    public enum ParcelSize
+    public enum DeliveryItemType
     {
-        Small,
-        Medium,
-        Large,
-        XL
+        Parcel
     }
 
     public class DeliveryItem
     {
-        public ParcelSize Size { get; set; }
+        public DeliveryItemType Type { get; set; }
         public decimal Cost { get; set; }
 
         public DeliveryItem(Parcel parcel)
         {
-            SetSize(parcel);
+            Type = DeliveryItemType.Parcel;
+            Cost = GetParcelCost(parcel.Size);
         }
 
-        private void SetSize(Parcel parcel)
+        private decimal GetParcelCost(ParcelSize parcelSize)
         {
-            if (ParcelIsSmall(parcel))
+            if (parcelSize == ParcelSize.Small)
             {
-                Size = ParcelSize.Small;
-                Cost = 3;
+                return 3;
             }
-            else if (ParcelIsMedium(parcel))
+            else if (parcelSize == ParcelSize.Medium)
             {
-                Size = ParcelSize.Medium;
-                Cost = 8;
+                return 8;
             }
-            else if (ParcelIsLarge(parcel))
+            else if (parcelSize == ParcelSize.Large)
             {
-                Size = ParcelSize.Large;
-                Cost = 15;
+                return 15;
             }
             else
             {
-                Size = ParcelSize.XL;
-                Cost = 25;
+                return 25;
             }
-        }
-
-        private static bool ParcelIsSmall(Parcel parcel)
-        {
-            return parcel.X < 10 && parcel.Y < 10 && parcel.Z < 10;
-        }
-
-        private static bool ParcelIsMedium(Parcel parcel)
-        {
-            return parcel.X < 50 && parcel.Y < 50 && parcel.Z < 50;
-        }
-
-        private static bool ParcelIsLarge(Parcel parcel)
-        {
-            return parcel.X < 100 && parcel.Y < 100 && parcel.Z < 100;
         }
     }
 }

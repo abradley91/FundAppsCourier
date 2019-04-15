@@ -81,13 +81,13 @@ namespace FundAppsCodeKata.Tests
 
             Assert.AreEqual(4, result.DeliveryItems.Count);
             Assert.AreEqual(51, result.TotalCost);
-            Assert.AreEqual(ParcelSize.Small, result.DeliveryItems[0].Size);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[0].Type);
             Assert.AreEqual(3, result.DeliveryItems[0].Cost);
-            Assert.AreEqual(ParcelSize.Medium, result.DeliveryItems[1].Size);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[1].Type);
             Assert.AreEqual(8, result.DeliveryItems[1].Cost);
-            Assert.AreEqual(ParcelSize.Large, result.DeliveryItems[2].Size);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[2].Type);
             Assert.AreEqual(15, result.DeliveryItems[2].Cost);
-            Assert.AreEqual(ParcelSize.XL, result.DeliveryItems[3].Size);
+            Assert.AreEqual(DeliveryItemType.Parcel, result.DeliveryItems[3].Type);
             Assert.AreEqual(25, result.DeliveryItems[3].Cost);
         }
 
